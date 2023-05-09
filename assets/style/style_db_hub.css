@@ -1,0 +1,41 @@
+div.list {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: center;
+    border: var(--main_line_cfg);
+    padding: 40px 0;
+    gap: 50px;
+    margin: 1%;
+}
+div.list div {
+    display: flex;
+    flex-direction: row;
+    border: var(--main_line_cfg);
+}
+div.list div img {
+    height: 150px;
+}
+div.list div div:nth-child(1) {
+    width: 150px;
+    justify-content: center;
+}
+div.list div div:nth-child(2) {
+    width: 250px;
+}
+div.list div div:not(:nth-child(1)) {
+    display: block;
+}
+div.list div div p {
+    margin: 0;
+    word-wrap: break-word;
+    padding: 5px;
+}
+div.list div div div:not(:nth-child(2)) {
+    border: none;
+    justify-content: left;
+}
+div.list div div div:nth-child(2) {
+    border-right: none;
+    border-left: none;
+}

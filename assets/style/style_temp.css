@@ -1,0 +1,102 @@
+#content {
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+}
+#sidebar {
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    border-right: var(--main_line_cfg);
+}
+#sidebar div {
+    width: 300px;
+}
+#sidebar div:nth-child(1) {
+    width: 290px;
+    padding: 5px;
+    border-bottom: var(--main_line_cfg);
+}
+#sidebar div div h3{
+    margin: 0;
+}
+#sidebar div div:nth-child(1) {
+    border-bottom: var(--main_line_cfg);
+}
+#sidebar div img {
+    width: 290px;
+}
+#sidebar div div div p {
+    padding-left: 5px;
+}
+#main-con{
+    margin: 8px;
+}
+div.rank {
+    margin-bottom: 8px;
+    padding: 8px;
+    border: var(--main_line_cfg);
+    display: flex;
+    flex-direction: row;
+    background: var(--main_bg_upper);
+}
+div.rank div.halfone {
+    text-align: center;
+    border-right: var(--main_line_cfg);
+}
+div.rank div.halftwo {
+    position:relative;
+}
+div.rank div.halftwo p{
+    margin: 5px auto;
+    display: inline-block;
+}
+div.rank div {
+    padding: 5px;
+}
+div.rank p{
+    margin: 0;
+}
+#rat {
+    font-size: 150%;
+}
+span.spec,
+p.spec {
+    background: var(--main_accent);
+    padding: 3px;
+}
+div.form {
+    padding: 8px;
+    border: var(--main_line_cfg);
+    background: var(--main_bg_upper);
+}
+select, input, input#pfpID::-webkit-file-upload-button {
+    border: var(--main_accent) 2px solid;
+    background: var(--start_bg);
+    color: var(--main_text);
+}
+#main-con div div p {
+    padding-left: 5px;
+}
+#main-con h3 {
+    padding: 2px;
+    border-bottom: var(--main_line_cfg);
+}
+label.hidden {
+    display: none;
+}
+thead tr th {
+    font-weight: bold;
+}
+table, th, td {
+    border: var(--main_accent) 1px solid;
+}
+table {
+    width: 100%;
+}
+th, td {
+    font-weight: normal;
+    margin: 5px;
+    padding: 5px;
+}
+

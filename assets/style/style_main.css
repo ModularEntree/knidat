@@ -1,0 +1,53 @@
+:root:lang(cs) {
+    --rec_pfp: 65px;
+}
+div.welcome {
+    background: var(--main_bg_upper);
+    margin: 0 auto;
+    width: 80%;
+    padding: 15px;
+    text-align: center;
+    border: var(--main_accent) 5px dashed;
+}
+div.welcome p {
+    padding: 5px;
+}
+div.welcome div {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    padding-bottom: inherit;
+}
+div.recent {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 25%;
+}
+div.recent div {
+    display: flex;
+    flex-direction: column;
+}
+div.recent div div {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    padding: 5px 8px;
+}
+div.recent div div p {
+    text-align: center;
+}
+div.recent div div:not(:nth-child(1)) {
+    border: var(--main_line) 1px solid;
+}
+div.recent div div:not(:nth-child(2)) {
+    border-top: none;
+}
+div.recent div div img {
+    width: var(--rec_pfp);
+}

@@ -1,0 +1,27 @@
+#content {
+    padding: 20px;
+    width: 1000px;
+    margin: 0 auto;
+}
+form {
+    width: 70%;
+    margin: 0 auto;
+}
+fieldset {
+    border: var(--main_line_cfg);
+}
+fieldset div {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+input[type="file"] {
+    margin: 0 auto;
+}
+input[type="submit"], div.submit {
+    margin: 5px;
+    text-align: center;
+}
+p {
+    text-align: center;
+}

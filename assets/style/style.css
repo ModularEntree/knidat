@@ -1,0 +1,166 @@
+@import url('https://fonts.googleapis.com/css2?family=Bruno+Ace&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Kanit&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Kanit:wght@200&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Syne+Mono&family=Ubuntu&display=swap');
+:root:lang(cs) {
+    --main_bg: #292929;
+    --main_bg_upper: #303030;
+    --main_text: #e3e3e3;
+    --nav_bg: #c95c04;
+    --nav_active: #4d4d4d;
+    --start_bg: #1f1f1f;
+    --footer_bg: #575757;
+    --start_pfp: 40px;
+    --main_line: #404040;
+    --main_accent: #d16a1b;
+    --main_line_cfg: var(--main_line) 1px solid;
+}
+/* ------ */
+body {
+    margin: 0;
+    background: var(--footer_bg);
+    color: var(--main_text);
+    font-family: 'Ubuntu', sans-serif;
+}
+header {
+    background: var(--main_bg);
+
+}
+main {
+    background: var(--main_bg);
+}
+/* ------ */
+h1, h2, h3, h4, h5 {
+    font-family: 'Kanit', sans-serif;
+    font-weight: 400;
+}
+h2 {
+    font-weight: 200;
+}
+a {
+    text-decoration: none;
+    color: var(--main_accent);
+}
+a p {
+    padding: 2px;
+}
+a p:hover {
+    background: var(--main_accent);
+    color: var(--main_text);
+}
+a img {
+    margin: 2px;
+    padding: 0;
+}
+a img:hover {
+    cursor: pointer;
+    border: var(--main_accent) 2px dashed;
+    margin: 0;
+    padding: 0;
+}
+p {
+    word-wrap: anywhere;
+}
+/* ------ */
+p.error {
+    color:red;
+}
+div.header {
+    margin: 0;
+    padding: 5px;
+    border-bottom: var(--main_line_cfg);
+    background: var(--main_bg_upper);
+}
+div.header h2 {
+    margin: inherit;
+}
+/* ------ */
+div.start {
+    background: var(--start_bg);
+    margin: 0;
+    padding: 10px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+div.logo {
+    margin-right: auto;
+    padding: inherit;
+    background: inherit;
+}
+div.logo p {
+    margin: 0;
+    font-size: 2.5em;
+    font-family: 'Bruno Ace', sans-serif;
+}
+div.logo p a {
+    color: var(--main_text);
+    background: var(--start_bg);
+}
+div.user {
+    margin-left: auto;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+div.user p {
+    font-family: 'Kanit', sans-serif;
+    font-size: 1.5em;
+    margin: 0;
+}
+div.user img {
+    width: var(--start_pfp);
+    height: var(--start_pfp);
+}
+div.user a {
+    background: var(--start_bg);
+    color: var(--main_text);
+    padding: 0;
+}
+img.invert {
+    -webkit-filter: invert(100%); /* safari 6.0 - 9.0 */
+    filter: invert(80%);
+}
+/* ------ */
+nav {
+    margin: 0;
+    position: sticky;
+    width: 100%;
+}
+nav ul {
+    margin: inherit;
+    background-color: var(--nav_bg);
+    list-style: none;
+    padding-left: 0;
+}
+nav li {
+    position: relative;
+    display: inline-block;
+}
+nav li:hover ul {
+    display: block;
+    position: absolute;
+    z-index: 100;
+}
+nav a {
+    text-decoration: none;
+    color: var(--main_text);
+    display: block;
+    padding: 10px 10px;
+}
+nav a:hover {
+    background-color: var(--nav_active);
+}
+/* ------ */
+footer {
+    text-align: center;
+    margin: 0;
+    background: var(--footer_bg);
+}
+footer p {
+    margin: inherit;
+    padding: 5px;
+}
