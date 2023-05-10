@@ -58,8 +58,12 @@
                 <div>
                     <div>
                         <p>Poslední úprava:
-                            <a href="<?php echo "/db/book/" . $info["0"]["ID_Book"]; ?>/"><?php if ($info["0"]["lastUpdate"]==null) echo "Žádná"; else echo $info["0"]["lastUpdate"]; ?>
-                            </a>
+                            <?php
+                            if($info["0"]["lastUpdate"]!="Chybí")
+                                echo '<a href="/db/book/' . $info["0"]["ID_Book"].'/">'.$info["0"]["lastUpdate"].'</a>';
+                            else
+                                echo 'Žádná';
+                            ?>
                         </p>
                         <p>Průměrné hodnocení: <?php echo $info["0"]["avgRat"]; ?></p>
                         <p>Pocet knih: <?php echo $info["0"]["noBookAll"]; ?></p>

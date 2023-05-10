@@ -44,5 +44,7 @@ class main
         if($choose == "infoUserSpec") {
             return ($DB->infoUserSpec($userIDPage));
         }
+        return 0;
+        # možné potíže
     }
 }

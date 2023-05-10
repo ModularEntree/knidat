@@ -117,33 +117,34 @@
             </div>
             <div class="form">
                 <form method="post">
+                    <input type="hidden" name="ID_Book" value="<?PHP echo $infoBook[0]["ID_Book"]; ?>" required>
                     <label for="statusID" class="hidden"></label>
-                    <select name="status" id="statusID">
-                        <option value="">-- Vyberte --</option>
-                        <option value="reading">Čtu</option>
-                        <option value="completed">Dokončeno</option>
-                        <option value="onHold">Dávám si pauzu</option>
-                        <option value="dropped">Nedokončeno</option>
-                        <option value="planToRead">Plánuji číst</option>
+                    <select name="status" id="statusID" required>
+                        <option value="0">-- Vyberte --</option>
+                        <option value="1">Čtu</option>
+                        <option value="2">Dokončeno</option>
+                        <option value="3">Dávám si pauzu</option>
+                        <option value="4">Nedokončeno</option>
+                        <option value="5">Plánuji číst</option>
                     </select>
                     <label for="ratingID" class="hidden"></label>
-                    <select name="rating" id="ratingID">
-                        <option value="">-- Vyberte --</option>
-                        <option value="ten">(10) Masterpiece</option>
-                        <option value="nine">(9) Úžasné</option>
-                        <option value="eight">(8) Velmi dobré</option>
-                        <option value="seven">(7) Dobré</option>
-                        <option value="six">(6) Ucházející</option>
-                        <option value="five">(5) Průměr</option>
-                        <option value="for">(4) Špatné</option>
-                        <option value="three">(3) Velmi špatné</option>
-                        <option value="two">(2) Příšerné</option>
-                        <option value="one">(1) Urážka</option>
+                    <select name="rating" id="ratingID" required>
+                        <option value="0">-- Vyberte --</option>
+                        <option value="10">(10) Masterpiece</option>
+                        <option value="9">(9) Úžasné</option>
+                        <option value="8">(8) Velmi dobré</option>
+                        <option value="7">(7) Dobré</option>
+                        <option value="6">(6) Ucházející</option>
+                        <option value="5">(5) Průměr</option>
+                        <option value="4">(4) Špatné</option>
+                        <option value="3">(3) Velmi špatné</option>
+                        <option value="2">(2) Příšerné</option>
+                        <option value="1">(1) Urážka</option>
                     </select>
                     <label for="noBookID" class="hidden"></label>
-                    <input type="number" name="noBook" id="noBookID" min="0" max="PocetKnih" placeholder="Max. PocetKnih">
+                    <input type="number" name="noBook" id="noBookID" min="0" max="PocetKnih" placeholder="Max. PocetKnih" required>
                     <label for="noChapID" class="hidden"></label>
-                    <input type="number" name="noChap" id="noChapID" min="0" max="PocetKapitol" placeholder="Max. PocetKapitol">
+                    <input type="number" name="noChap" id="noChapID" min="0" max="PocetKapitol" placeholder="Max. PocetKapitol" required>
                     <input type="submit" id="submitID" value="Potvrdit">
                 </form>
                 <?php

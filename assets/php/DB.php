@@ -58,6 +58,11 @@ class DB {
         $datCon = $this->datCon();
         $SQL = "select DISTINCT userinfo.username as username, userinfo.name as name, userinfo.surname as surname, userinfo.dateOfBirth as dateOfBirth, userinfo.bio as bio, userinfo.avgRat as avgRat, userinfo.noBookAll as noBookAll, userinfo.noChapAll as noChapAll, book.name as lastUpdate, gender.name as gender, language.name as language, country.name as country, book.ID_Book as ID_Book, userinfo.ID_User as ID_User from userinfo, country, language, gender, book where (ID_User=" . $userIDPage . ")And(userinfo.gender=gender.ID_Gend)And(userinfo.language=language.ID_Lang)And(userinfo.country=country.ID_Coun)And(userinfo.lastUpdate=book.ID_Book);";
         $info = mysqli_fetch_all(mysqli_query($datCon, $SQL), MYSQLI_ASSOC);
+        if (!isset($info["0"]["name"])) {
+            $SQL = "select DISTINCT userinfo.username as username, userinfo.name as name, userinfo.surname as surname, userinfo.dateOfBirth as dateOfBirth, userinfo.bio as bio, userinfo.avgRat as avgRat, userinfo.noBookAll as noBookAll, userinfo.noChapAll as noChapAll, book.name as lastUpdate, gender.name as gender, language.name as language, country.name as country, book.ID_Book as ID_Book, userinfo.ID_User as ID_User from userinfo, country, language, gender, book where (ID_User=" . $userIDPage . ")And(userinfo.gender=gender.ID_Gend)And(userinfo.language=language.ID_Lang)And(userinfo.country=country.ID_Coun);";
+            $info = mysqli_fetch_all(mysqli_query($datCon, $SQL), MYSQLI_ASSOC);
+            $info["0"]["lastUpdate"] = "Chybí";
+        }
         mysqli_close($datCon);
         return $info;
     }
@@ -93,6 +98,8 @@ class DB {
     }
     public function changeOfStatus($ratYet):void {
         $datCon = $this->datCon();
+        # $ID_Book =;
+        # $status = ;
         if ($ratYet != "Nehodnoceno") {
             $SQL = "";
             $info = mysqli_fetch_all(mysqli_query($datCon, $SQL), MYSQLI_ASSOC);
