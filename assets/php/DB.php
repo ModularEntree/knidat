@@ -77,6 +77,20 @@ class DB {
         mysqli_close($datCon);
         return $info;
     }
+    public function bookStatus($userIDPage) {
+        $datCon = $this->datCon();
+        $SQL = "select status.name as status, bookstatus.noBookCmpl as noBookCmpl, bookstatus.noChapCmpl as noChapCmpl, bookstatus.rating as rating from bookstatus, userinfo, status where (userinfo.ID_User=" . 76 .") And (bookstatus.ID_Book=" . 1 .") And (bookstatus.status=status.ID_Stat);";
+        #zaměnit jedničku a 76 za IDs po testování
+        $info = mysqli_fetch_all(mysqli_query($datCon, $SQL), MYSQLI_ASSOC);
+        if (!isset($info["0"]["status"])) {
+            $info[0]["status"] = "Nehodnoceno";
+            $info[0]["noChapCmpl"] = "0";
+            $info[0]["noBookCmpl"] = "0";
+            $info[0]["rating"] = "Nehodnoceno";
+        }
+        mysqli_close($datCon);
+        return $info;
+    }
     public function bookTop($userIDPage) {
         $datCon = $this->datCon();
         $SQL = "WITH cBase AS ( SELECT book.ID_Book, ROW_NUMBER() OVER (ORDER BY book.avgRat DESC) AS top FROM book) SELECT * FROM cBase WHERE ID_Book=" . $userIDPage . ";";

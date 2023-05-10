@@ -32,6 +32,9 @@ class main
         if($choose == "infoBook") {
             return ($DB->infoBook($userIDPage));
         }
+        if($choose == "bookStatus") {
+            return ($DB->bookStatus($userIDPage));
+        }
         if($choose == "bookTop") {
             return ($DB->bookTop($userIDPage));
         }

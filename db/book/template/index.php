@@ -57,10 +57,13 @@
                 </div>
                 <div>
                     <div>
-                        <p>Status: <span class="spec">StatusKnihy</span></p>
-                        <p>Dokončené kapitoly: PočetKapitol</p>
-                        <p>Dokončené knihy: PočetKnih</p>
-                        <p>Hodnocení: Rating</p>
+                        <?php
+                        $bookStatus = ($MAIN->__construct("bookStatus", 0));
+                        ?>
+                        <p>Status: <span class="spec"><?PHP echo $bookStatus[0]["status"]; ?></span></p>
+                        <p>Dokončené kapitoly: <?PHP echo $bookStatus[0]["noChapCmpl"]; ?></p>
+                        <p>Dokončené knihy: <?PHP echo $bookStatus[0]["noBookCmpl"]; ?></p>
+                        <p>Hodnocení: <?PHP echo $bookStatus[0]["rating"]; ?></p>
                     </div>
                 </div>
             </div>
