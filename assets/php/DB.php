@@ -63,9 +63,9 @@ class DB {
     }
     public function infoUser() {
         $datCon = $this->datCon();
-        $SQL = "select username from userinfo where ID_User=" . $_COOKIE["ID_User"] . ";";
+        $SQL = "select username from userinfo where ID_User=" . $_SESSION["ID_User"] . ";";
         $info = mysqli_fetch_all(mysqli_query($datCon, $SQL), MYSQLI_ASSOC);
-        echo "<div><p>".$info["0"]["username"]."</p></div><div><a href='/db/user/".$_COOKIE["ID_User"]."/'><img src='/db/user/".$_COOKIE["ID_User"]."/pfp.jpg' alt='Profile picture was not found'></a></div><div><a href='/assets/php/unlog.php' target='_blank'><img src='/assets/images/logout.svg' class='invert'></a></div>";
+        echo "<div><p>".$info["0"]["username"]."</p></div><div><a href='/db/user/".$_SESSION["ID_User"] ."/'><img src='/db/user/".$_SESSION["ID_User"]."/pfp.jpg' alt='Profile picture was not found'></a></div><div><a href='/assets/php/unlog.php'><img src='/assets/images/logout.svg' alt='Ohlásit se.' class='invert'></a></div>";
         mysqli_close($datCon);
         return $info;
     }
@@ -85,7 +85,7 @@ class DB {
         return $info;
     }
     public function logUser() {
-        if($_COOKIE["ID_User"]!=0) {
+        if(isset($_SESSION["ID_User"])) {
             echo "<script type=\"text/javascript\">
                         window.alert('Jste již přihlášen.');
                     </script>";
@@ -105,7 +105,7 @@ class DB {
                         </script>";
                     return;
                 }
-                $SQL = "select ID_User, password from userinfo where username=\"$username \";";
+                $SQL = "select ID_User, password from userinfo where username=\"". $username ." \";";
                 $passwd = mysqli_fetch_all(mysqli_query($datCon, $SQL), MYSQLI_ASSOC);
                 if (!password_verify($password, $passwd["0"]["password"])) {
                     echo "<script type=\"text/javascript\">
@@ -116,8 +116,8 @@ class DB {
                 echo "<script type=\"text/javascript\">
                             window.alert('Přihlášeno!');
                         </script>";
-
-                setcookie("ID_User", $passwd["0"]["ID_User"], time() + (86400 * 30), "/");
+                $_SESSION["ID_User"] = $passwd["0"]["ID_User"];
+                # setcookie("ID_User", $passwd["0"]["ID_User"], time() + (86400 * 30), "/");
                 mysqli_close($datCon);
                 return;
             }

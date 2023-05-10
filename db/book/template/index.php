@@ -1,4 +1,4 @@
-<?php if(!isset($_COOKIE["ID_User"])) setcookie("ID_User", 0, time() + (86400 * 30), '/'); ?>
+<?php if(!isset($_SESSION["ID_User"])) {session_start();}; ?>
 <!DOCTYPE html>
 <html lang="cs">
 <head>
@@ -19,7 +19,7 @@
             <?php
             require($_SERVER['DOCUMENT_ROOT'] . "/assets/php/main.php");
             $MAIN = new main(0, 0);
-            if($_COOKIE["ID_User"]!=0) {
+            if(isset($_SESSION["ID_User"])) {
                 $info = ($MAIN->__construct("infoUser", 0));
             }
             else
@@ -139,6 +139,7 @@
                     </select>
                     <label for="noBookID" class="hidden"></label>
                     <input type="number" name="noBook" id="noBookID" min="0" max="PocetKnih" placeholder="Max. PocetKnih">
+                    <label for="noChapID" class="hidden"></label>
                     <input type="number" name="noChap" id="noChapID" min="0" max="PocetKapitol" placeholder="Max. PocetKapitol">
                     <input type="submit" id="submitID" value="Potvrdit">
                 </form>
