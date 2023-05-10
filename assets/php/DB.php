@@ -15,6 +15,7 @@ class DB {
     public function dbUsers():void {
         $datCon = $this->datCon();
         $SQL = "select book.ID_Book as ID_Book, book.name as lastUpdate, userinfo.username as username, userinfo.bio as bio, userinfo.ID_User as ID_User from userinfo, book where (book.ID_Book=userinfo.lastUpdate) order by userinfo.username ASC;";
+        # nefunguje pro všechny uživatele
         $dbUsers = mysqli_fetch_all(mysqli_query($datCon, $SQL), MYSQLI_ASSOC);
         foreach ($dbUsers as $row) {
             echo "<div><div><a href='/db/user/" . $row["ID_User"] . "/'><img src='/db/user/" . $row["ID_User"] . "/pfp.jpg' alt='Profile picture was not found'></a></div><div><div><a href='/db/user/" . $row["ID_User"] . "/'><p>" . $row["username"] . "</p></a></div><div><p>Poslední změna: <a href='/db/book/" . $row["ID_Book"] . "/'> " . $row["lastUpdate"] . "</a></p></div><div>" . substr($row["bio"],0,130) . "..." . "</p></div></div></div>";
@@ -76,16 +77,15 @@ class DB {
     }
     public function infoBook($userIDPage):array {
         $datCon = $this->datCon();
-        $SQL = "select * from book where ID_Book=" . 1 . ";";
-        # jedničku nahradit za $userIDPage
+        $SQL = "select * from book where ID_Book=" . $userIDPage . ";";
         $info = mysqli_fetch_all(mysqli_query($datCon, $SQL), MYSQLI_ASSOC);
         mysqli_close($datCon);
         return $info;
     }
     public function bookStatus($userIDPage):array {
         $datCon = $this->datCon();
-        $SQL = "select status.name as status, bookstatus.noBookCmpl as noBookCmpl, bookstatus.noChapCmpl as noChapCmpl, bookstatus.rating as rating from bookstatus, userinfo, status where (userinfo.ID_User=" . 76 .") And (bookstatus.ID_Book=" . 1 .") And (bookstatus.status=status.ID_Stat);";
-        #zaměnit jedničku a 76 za IDs po testování
+        $SQL = "select status.name as status, bookstatus.noBookCmpl as noBookCmpl, bookstatus.noChapCmpl as noChapCmpl, bookstatus.rating as rating from bookstatus, userinfo, status where (userinfo.ID_User=" . $_SESSION["ID_User"] .") And (bookstatus.ID_Book=" . $userIDPage .") And (bookstatus.status=status.ID_Stat);";
+        # nefunguje pro jiné uživatel než 76
         $info = mysqli_fetch_all(mysqli_query($datCon, $SQL), MYSQLI_ASSOC);
         if (!isset($info["0"]["status"])) {
             $info[0]["status"] = "Nehodnoceno";
@@ -97,14 +97,45 @@ class DB {
         return $info;
     }
     public function changeOfStatus($ratYet):void {
-        $datCon = $this->datCon();
-        # $ID_Book =;
-        # $status = ;
-        if ($ratYet != "Nehodnoceno") {
-            $SQL = "";
-            $info = mysqli_fetch_all(mysqli_query($datCon, $SQL), MYSQLI_ASSOC);
+        if (isset($ID_Book)&&isset($ID_User)&&isset($status)&&isset($rating)&&isset($noBook)&&isset($noChap)) {
+            $datCon = $this->datCon();
+            $ID_Book = $_POST["ID_Book"];
+            $ID_User = $_POST["ID_User"];
+            $status = $_POST["status"];
+            $rating = $_POST["rating"];
+            $noBook = $_POST["noBook"];
+            $noChap = $_POST["noChap"];
+            $SQL = "select noBook, noChap, avgRat from book where ID_Book =". $ID_Book .";";
+            $book = mysqli_fetch_all(mysqli_query($datCon, $SQL), MYSQLI_ASSOC);
+            if ($ratYet != "Nehodnoceno") {
+                if ($book["0"]["NoChap"]<$noBook||$book["0"]["NoChap"]<$noChap) {
+                    echo "<script type=\"text/javascript\">
+                            window.alert('Počet knih nebo kapitol je větší než stanovený limit.');
+                        </script>";
+                    return;
+                }
+                $SQL = "UPDATE bookstatus SET status = " . $status . ", noBookCmpl = " . $noBook . ", noChapCmpl = " . $noChap . ", rating = " . $rating . " where (ID_User = " . $ID_User . ") AND (ID_Book = " . $ID_Book . ");";
+                mysqli_query($datCon, $SQL);
+            }
+            else {
+                $SQL = "insert into bookstatus(ID_Book, ID_User, status, noBookCmpl, noChapCmpl, rating) values (".$ID_Book.",".$ID_User.",".$status.",".$noBook.",".$noChap.",".$rating.");";
+                mysqli_query($datCon, $SQL);
+            }
+            $datetime=date("Y-m-d H:i:s",time());
+
+            $SQL = "select sum(rating) as sum, count(ID_Book) as count from bookstatus where ID_Book=".$ID_Book.";";
+            $numBook = mysqli_fetch_all(mysqli_query($datCon, $SQL), MYSQLI_ASSOC)["0"];
+
+            $SQL = "select sum(rating) as sum, count(ID_User) as count from bookstatus where ID_User=".$ID_User.";";
+            $numUser = mysqli_fetch_all(mysqli_query($datCon, $SQL), MYSQLI_ASSOC)["0"];
+
+            $SQL = "update book set lastUpdate='".$datetime."', avgRat=" . ($numBook["sum"]/$numBook["count"]) . " where ID_Book=".$ID_Book.";";
+            mysqli_query($datCon, $SQL);
+
+            $SQL = "update userinfo set lastUpdate=".$ID_Book.",lastUpdate_time='".$datetime."', avgRat=".($numUser["sum"]/$numUser["count"])." where ID_User=".$ID_User.";";
+            mysqli_query($datCon, $SQL);
+            mysqli_close($datCon);
         }
-        mysqli_close($datCon);
         return;
     }
     public function bookTop($userIDPage):array {
