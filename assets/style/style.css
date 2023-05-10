@@ -47,6 +47,8 @@ a p {
 a p:hover {
     background: var(--main_accent);
     color: var(--main_text);
+    animation-name: hovering;
+    animation-duration: 0.5s;
 }
 a img {
     margin: 2px;
@@ -55,6 +57,8 @@ a img {
 a img:hover {
     cursor: pointer;
     border: var(--main_accent) 2px dashed;
+    animation-name: hoveringImg;
+    animation-duration: 0.5s;
     margin: 0;
     padding: 0;
 }
@@ -163,4 +167,21 @@ footer {
 footer p {
     margin: inherit;
     padding: 5px;
+}
+@keyframes hovering {
+    0% {
+        color:var(--accent);
+    }
+    100% {
+        background-color: var(--main_accent);
+        color:var(--main_text);
+    }
+}
+@keyframes hoveringImg {
+    0% {
+        border: rgba(209, 106, 27, 0) 2px dashed;
+    }
+    100% {
+        border: rgba(209, 106, 27, 1) 2px dashed;
+    }
 }

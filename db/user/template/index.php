@@ -1,4 +1,4 @@
-<?php if(!isset($_SESSION["ID_User"])) {session_start();$_SESSION["ID_User"]=0;}; ?>
+<?php if(!isset($_SESSION["ID_User"])) {session_start();}; ?>
 <!DOCTYPE html>
 <html lang="cs">
 <head>

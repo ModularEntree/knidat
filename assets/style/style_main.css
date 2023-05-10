@@ -20,6 +20,17 @@ div.welcome div {
     gap: 20px;
     padding-bottom: inherit;
 }
+div.welcome a {
+    margin: 2px;
+}
+div.welcome a:hover {
+    color: var(--main_text);
+    background: var(--main_accent);
+    padding: 2px;
+    margin:0;
+    animation-name: hovering;
+    animation-duration: 0.5s;
+}
 div.recent {
     display: flex;
     flex-direction: row;

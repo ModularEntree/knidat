@@ -79,7 +79,7 @@ class DB {
     }
     public function bookTop($userIDPage) {
         $datCon = $this->datCon();
-        $SQL = "WITH cBase AS ( SELECT book.ID_Book, ROW_NUMBER() OVER (ORDER BY book.avgRat DESC) AS top FROM book) SELECT * FROM cBase WHERE ID_Book=1;";
+        $SQL = "WITH cBase AS ( SELECT book.ID_Book, ROW_NUMBER() OVER (ORDER BY book.avgRat DESC) AS top FROM book) SELECT * FROM cBase WHERE ID_Book=" . $userIDPage . ";";
         $info = mysqli_fetch_all(mysqli_query($datCon, $SQL), MYSQLI_ASSOC);
         mysqli_close($datCon);
         return $info;
