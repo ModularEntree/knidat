@@ -1,7 +1,7 @@
 <?php
 
 class DB {
-    public function usersBooks($userIDPage) {
+    public function usersBooks($userIDPage):void {
         $datCon = $this->datCon();
         $SQL = "select book.name as bookName, bookstatus.rating as bookRat, bookstatus.noBookCmpl as noBookCmpl, bookstatus.noChapCmpl as noChapCmpl, status.name as status, book.noBook as noBook, book.noChap as noChap, book.ID_Book as ID_Book from userinfo, bookstatus, book, status where (userinfo.ID_User=" . $userIDPage . ") And (userinfo.ID_User=bookstatus.ID_User) And (book.ID_Book=bookstatus.ID_Book) And (status.ID_Stat=bookstatus.status);";
         $usersBooks = mysqli_fetch_all(mysqli_query($datCon, $SQL), MYSQLI_ASSOC);
@@ -12,7 +12,7 @@ class DB {
         mysqli_close($datCon);
         return;
     }
-    public function dbUsers() {
+    public function dbUsers():void {
         $datCon = $this->datCon();
         $SQL = "select book.ID_Book as ID_Book, book.name as lastUpdate, userinfo.username as username, userinfo.bio as bio, userinfo.ID_User as ID_User from userinfo, book where (book.ID_Book=userinfo.lastUpdate) order by userinfo.username ASC;";
         $dbUsers = mysqli_fetch_all(mysqli_query($datCon, $SQL), MYSQLI_ASSOC);
@@ -22,7 +22,7 @@ class DB {
         mysqli_close($datCon);
         return;
     }
-    public function dbBooks() {
+    public function dbBooks():void {
         $datCon = $this->datCon();
         $SQL = "select ID_Book, name, synopsis, avgRat from book order by name ASC;";
         $dbBooks = mysqli_fetch_all(mysqli_query($datCon, $SQL), MYSQLI_ASSOC);
@@ -32,7 +32,7 @@ class DB {
         mysqli_close($datCon);
         return;
     }
-    public function recBooks() {
+    public function recBooks():void {
         $datCon = $this->datCon();
         $SQL = "select ID_Book, lastUpdate, name from book where (lastUpdate < NOW()) limit 2;";
         $recBooks = mysqli_fetch_all(mysqli_query($datCon, $SQL), MYSQLI_ASSOC);
@@ -43,7 +43,7 @@ class DB {
         mysqli_close($datCon);
         return;
     }
-    public function recUsers() {
+    public function recUsers():void {
         $datCon = $this->datCon();
         $SQL = "select userinfo.username as username, userinfo.ID_User as ID_User, book.name as lastUpdate, book.ID_Book as ID_Book, userinfo.lastUpdate_time as lastUpdate_time from userinfo, book where (book.ID_Book=userinfo.lastUpdate) And (lastUpdate_time < NOW()) limit 3;";
         $recUsers = mysqli_fetch_all(mysqli_query($datCon, $SQL), MYSQLI_ASSOC);
@@ -54,14 +54,14 @@ class DB {
         mysqli_close($datCon);
         return;
     }
-    public function infoUserSpec($userIDPage) {
+    public function infoUserSpec($userIDPage):array {
         $datCon = $this->datCon();
         $SQL = "select DISTINCT userinfo.username as username, userinfo.name as name, userinfo.surname as surname, userinfo.dateOfBirth as dateOfBirth, userinfo.bio as bio, userinfo.avgRat as avgRat, userinfo.noBookAll as noBookAll, userinfo.noChapAll as noChapAll, book.name as lastUpdate, gender.name as gender, language.name as language, country.name as country, book.ID_Book as ID_Book, userinfo.ID_User as ID_User from userinfo, country, language, gender, book where (ID_User=" . $userIDPage . ")And(userinfo.gender=gender.ID_Gend)And(userinfo.language=language.ID_Lang)And(userinfo.country=country.ID_Coun)And(userinfo.lastUpdate=book.ID_Book);";
         $info = mysqli_fetch_all(mysqli_query($datCon, $SQL), MYSQLI_ASSOC);
         mysqli_close($datCon);
         return $info;
     }
-    public function infoUser() {
+    public function infoUser():array {
         $datCon = $this->datCon();
         $SQL = "select username from userinfo where ID_User=" . $_SESSION["ID_User"] . ";";
         $info = mysqli_fetch_all(mysqli_query($datCon, $SQL), MYSQLI_ASSOC);
@@ -69,7 +69,7 @@ class DB {
         mysqli_close($datCon);
         return $info;
     }
-    public function infoBook($userIDPage) {
+    public function infoBook($userIDPage):array {
         $datCon = $this->datCon();
         $SQL = "select * from book where ID_Book=" . 1 . ";";
         # jedničku nahradit za $userIDPage
@@ -77,7 +77,7 @@ class DB {
         mysqli_close($datCon);
         return $info;
     }
-    public function bookStatus($userIDPage) {
+    public function bookStatus($userIDPage):array {
         $datCon = $this->datCon();
         $SQL = "select status.name as status, bookstatus.noBookCmpl as noBookCmpl, bookstatus.noChapCmpl as noChapCmpl, bookstatus.rating as rating from bookstatus, userinfo, status where (userinfo.ID_User=" . 76 .") And (bookstatus.ID_Book=" . 1 .") And (bookstatus.status=status.ID_Stat);";
         #zaměnit jedničku a 76 za IDs po testování
@@ -91,14 +91,23 @@ class DB {
         mysqli_close($datCon);
         return $info;
     }
-    public function bookTop($userIDPage) {
+    public function changeOfStatus($ratYet):void {
+        $datCon = $this->datCon();
+        if ($ratYet != "Nehodnoceno") {
+            $SQL = "";
+            $info = mysqli_fetch_all(mysqli_query($datCon, $SQL), MYSQLI_ASSOC);
+        }
+        mysqli_close($datCon);
+        return;
+    }
+    public function bookTop($userIDPage):array {
         $datCon = $this->datCon();
         $SQL = "WITH cBase AS ( SELECT book.ID_Book, ROW_NUMBER() OVER (ORDER BY book.avgRat DESC) AS top FROM book) SELECT * FROM cBase WHERE ID_Book=" . $userIDPage . ";";
         $info = mysqli_fetch_all(mysqli_query($datCon, $SQL), MYSQLI_ASSOC);
         mysqli_close($datCon);
         return $info;
     }
-    public function logUser() {
+    public function logUser():void {
         if(isset($_SESSION["ID_User"])) {
             echo "<script type=\"text/javascript\">
                         window.alert('Jste již přihlášen.');
@@ -140,7 +149,7 @@ class DB {
             }
         }
     }
-    public function regUser() {
+    public function regUser():void {
         if (!empty($_POST["realName"])&&!empty($_POST["realSurname"])&&!empty($_POST["username"])&&!empty($_POST["dateOfBirth"])&&!empty($_POST["gender"])&&!empty($_POST["country"])&&!empty($_POST["language"])&&!empty($_POST["password"])&&!empty($_POST["passwordA"])) {
             $realName = $_POST["realName"];
             $realSurname = $_POST["realSurname"];

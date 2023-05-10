@@ -146,6 +146,15 @@
                     <input type="number" name="noChap" id="noChapID" min="0" max="PocetKapitol" placeholder="Max. PocetKapitol">
                     <input type="submit" id="submitID" value="Potvrdit">
                 </form>
+                <?php
+                $MAIN = new main("changeOfStatus",$bookStatus[0]["status"]);
+                if (isset($_POST["PocetKapitol"])) {
+                    echo "<script type=\"text/javascript\">
+                        window.location.href = '/db/book/" . "template" . "/';
+                        // template zahradit za infoBook[0][ID_Book]
+                    </script>";
+                }
+                ?>
             </div>
             <div>
                 <div>

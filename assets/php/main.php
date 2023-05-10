@@ -23,6 +23,9 @@ class main
         if($choose == "dbBooks") {
             $DB->dbBooks();
         }
+        if($choose == "changeOfStatus") {
+            $DB->changeOfStatus($userIDPage);
+        }
         if($choose == "usersBooks") {
             $DB->usersBooks($userIDPage);
         }
