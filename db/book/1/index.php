@@ -118,7 +118,7 @@
             <div class="form">
                 <form method="post">
                     <input type="hidden" name="ID_Book" value="<?PHP echo $infoBook[0]["ID_Book"]; ?>" required>
-                    <input type="hidden" name="ID_User" value="<?PHP if(isset($info[0]["ID_User"])) echo $info[0]["ID_User"]; else echo "0"; ?>" required>
+                    <input type="hidden" name="ID_User" value="<?PHP if(isset($_SESSION["ID_User"])) echo $_SESSION["ID_User"]; else echo "5"; ?>" required>
                     <label for="statusID" class="hidden"></label>
                     <select name="status" id="statusID" required>
                         <option value="">-- Vyberte --</option>
@@ -143,14 +143,14 @@
                         <option value="1">(1) Urážka</option>
                     </select>
                     <label for="noBookID" class="hidden"></label>
-                    <input type="number" name="noBook" id="noBookID" min="0" max="<?PHP echo $bookStatus[0]["noBookCmpl"]; ?>" placeholder="Max. <?PHP echo $bookStatus[0]["noBookCmpl"]; ?>" required>
+                    <input type="number" name="noBook" id="noBookID" min="0" max="<?PHP echo $infoBook[0]["noBook"]; ?>" placeholder="Max. <?PHP echo $infoBook[0]["noBook"]; ?>" required>
                     <label for="noChapID" class="hidden"></label>
-                    <input type="number" name="noChap" id="noChapID" min="0" max="<?PHP echo $bookStatus[0]["noChapCmpl"]; ?>" placeholder="Max. <?PHP echo $bookStatus[0]["noChapCmpl"]; ?>" required>
+                    <input type="number" name="noChap" id="noChapID" min="0" max="<?PHP echo $infoBook[0]["noChap"]; ?>" placeholder="Max. <?PHP echo $infoBook[0]["noChap"]; ?>" required>
                     <?php if(isset($_SESSION["ID_User"])) echo '<input type="submit" id="submitID" value="Potvrdit">'; else echo " Nepřihlášen"; ?>
                 </form>
                 <?php
                 $MAIN = new main("changeOfStatus",$bookStatus[0]["status"]);
-                if (isset($_POST["PocetKapitol"])) {
+                if (isset($_POST["ID_Book"])) {
                     echo "<script type=\"text/javascript\">
                         window.location.href = '/db/book/" . $infoBook[0]["ID_Book"] . "/';
                     </script>";
